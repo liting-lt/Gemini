@@ -1,0 +1,63 @@
+import javax.microedition.lcdui.*;
+import javax.microedition.midlet.*;
+import java.io.*;
+
+public class AI extends MIDlet
+{
+	Display display;
+	MainCanvas mc;
+	public AI(){
+		display=Display.getDisplay(this);
+		mc=new MainCanvas();
+		display.setCurrent(mc);
+	}
+	public void startApp(){
+	}
+	public void destroyApp(boolean unc){
+	}
+	public void pauseApp(){
+	}
+}
+class MainCanvas extends Canvas
+{
+	Image currentImg,downImg,leftImg,upImg,rightImg;
+	public MainCanvas(){
+		try
+		{
+			downImg=Image.createImage("/sayo10.png");
+			leftImg=Image.createImage("/sayo12.png");
+			upImg=Image.createImage("/sayo14.png");
+			rightImg=Image.createImage("/sayo16.png");
+			currentImg=downImg;
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public void paint(Graphics g){
+		g.setColor(0,0,0);
+		g.fillRect(0,0,getWidth(),getHeight());
+		g.drawImage(currentImg,120,120,0);
+	}
+	public void KeyPressed(int KeyCode){
+		int action=getGameAction(KeyCode);
+		if(action==LEFT){
+			System.out.println("向左转");
+			currentImg=leftImg;
+		}
+		if(action==RIGHT){
+			System.out.println("向右转");
+			currentImg=rightImg;
+		}
+		if(action==UP){
+			System.out.println("向上转");
+			currentImg=upImg;
+		}
+		if(action==DOWN){
+			System.out.println("向下转");
+			currentImg=downImg;
+		}
+		repaint();
+	}
+}
